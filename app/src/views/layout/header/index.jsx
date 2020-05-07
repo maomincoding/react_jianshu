@@ -1,16 +1,9 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,Addition,Button,SearchWrapper} from './style'
 import {CSSTransition} from 'react-transition-group'
 
-export default class Header extends React.Component{
-  constructor(props) {
-    super(props);
-    this.focusInput = this.focusInput.bind(this);
-    this.blurInput = this.blurInput.bind(this);
-    this.state= {
-      focused:false
-    }
-  }
+class Header extends React.Component{
   render(){
     return (
       <HeaderWrapper>
@@ -25,13 +18,13 @@ export default class Header extends React.Component{
             </NavItem>
             <SearchWrapper>
                 <CSSTransition
-                  in={this.state.focused}
+                  in={this.props.focused}
                   timeout={200}
                   classNames="slide"
                 >
-                    <NavSearch className={this.state.focused?'focused':''} onFocus={this.focusInput} onBlur={this.blurInput}></NavSearch>
+                    <NavSearch className={this.props.focused?'focused':''} onFocus={this.props.focusInput} onBlur={this.props.blurInput}></NavSearch>
                 </CSSTransition>
-              <span className={this.state.focused?'focused iconfont':'iconfont'} >&#xe62d;</span>
+              <span className={this.props.focused?'focused iconfont':'iconfont'} >&#xe62d;</span>
             </SearchWrapper>
         </Nav>
         <Addition>
@@ -42,14 +35,27 @@ export default class Header extends React.Component{
     )
   }
 
-  focusInput(){
-    this.setState({
-      focused:true
-    })
-  }
-  blurInput(){
-    this.setState({
-      focused:false
-    })
+
+}
+const mapStateToProps = (state) =>{
+  return {
+    focused:state.focused
   }
 }
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    focusInput(){
+      const action = {
+        type:'focus'
+      }
+      dispatch(action);
+    },
+    blurInput(){
+      const action = {
+        type:'blur'
+      }
+      dispatch(action);
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Header)
