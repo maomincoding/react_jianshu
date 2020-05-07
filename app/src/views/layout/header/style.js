@@ -37,6 +37,10 @@ export const NavItem = styled.div`
   }
   &.right {
     float:right;
+    cursor:pointer;
+    .a{
+      font-size:22px;
+    }
   }
   &.active{
     color:#ea6f5a;
@@ -103,6 +107,7 @@ export const Button = styled.div`
   float:right;
   margin-top:9px;
   margin-right:20px;
+  cursor:pointer;
   line-height:38px;
   padding:0 20px;
   border-radius:19px;
