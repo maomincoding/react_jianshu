@@ -1,79 +1,79 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,SearchInfoList,Addition,Button,SearchInfoItem,SearchInfoSwitch,SearchWrapper,SearchInfo,SearchInfoTitle} from './style'
-import {CSSTransition} from 'react-transition-group'
-import {actionCreator} from './store'
+import { connect } from 'react-redux'
+import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, SearchInfoList, Addition, Button, SearchInfoItem, SearchInfoSwitch, SearchWrapper, SearchInfo, SearchInfoTitle } from './style'
+import { CSSTransition } from 'react-transition-group'
+import { actionCreator } from './store'
 
-const getListArea = (show) => {
-  if(show){
-    return (
-      <SearchInfo >
-      <SearchInfoTitle>
-        热门搜索
-        <SearchInfoSwitch>换一批</SearchInfoSwitch>
-      </SearchInfoTitle>
-      <SearchInfoList>
-        <SearchInfoItem>教育</SearchInfoItem>
-        <SearchInfoItem>文化</SearchInfoItem>
-        <SearchInfoItem>文本</SearchInfoItem>
-        <SearchInfoItem>学习</SearchInfoItem>
-        <SearchInfoItem>书法</SearchInfoItem>
-        <SearchInfoItem>社会</SearchInfoItem>
-      </SearchInfoList>
-    </SearchInfo>
-    )
-  } else{
-    return null;
+class Header extends React.Component {
+  getListArea(show) {
+    if (show) {
+      return (
+        <SearchInfo >
+          <SearchInfoTitle>
+            热门搜索
+          <SearchInfoSwitch>换一批</SearchInfoSwitch>
+          </SearchInfoTitle>
+          <SearchInfoList >
+            {
+              this.props.list.map((item)=>{
+              return <SearchInfoItem key={item}>{item}</SearchInfoItem>
+              })
+            }
+          </SearchInfoList>
+        </SearchInfo>
+      )
+    } else {
+      return null;
+    }
   }
-}
-
-class Header extends React.Component{
-  render(){
+  render() {
     return (
       <HeaderWrapper>
         {/* href="/" */}
         <Logo></Logo>
         <Nav>
-            <NavItem className="left active">首页</NavItem>
-            <NavItem className="left">下载App</NavItem>
-            <NavItem className="right">登录</NavItem>
-            <NavItem className="right">
+          <NavItem className="left active">首页</NavItem>
+          <NavItem className="left">下载App</NavItem>
+          <NavItem className="right">登录</NavItem>
+          <NavItem className="right">
             <span className="iconfont a">&#xe636;</span>
-            </NavItem>
-            <SearchWrapper>
-                <CSSTransition
-                  in={this.props.focused}
-                  timeout={200}
-                  classNames="slide"
-                >
-                    <NavSearch className={this.props.focused?'focused':''} onFocus={this.props.focusInput} onBlur={this.props.blurInput}></NavSearch>
-                </CSSTransition>
-              <span className={this.props.focused?'focused iconfont':'iconfont'} >&#xe62d;</span>
-              {getListArea(this.props.focused)}
-            </SearchWrapper>
+          </NavItem>
+          <SearchWrapper>
+            <CSSTransition
+              in={this.props.focused}
+              timeout={200}
+              classNames="slide"
+            >
+              <NavSearch className={this.props.focused ? 'focused' : ''} onFocus={this.props.focusInput} onBlur={this.props.blurInput}></NavSearch>
+            </CSSTransition>
+            <span className={this.props.focused ? 'focused iconfont' : 'iconfont'} >&#xe62d;</span>
+            {this.getListArea(this.props.focused)}
+          </SearchWrapper>
         </Nav>
         <Addition>
-            <Button className="writting"><span className="iconfont">&#xe742;</span>写文章</Button>
-            <Button className="reg">注册</Button>
+          <Button className="writting"><span className="iconfont">&#xe742;</span>写文章</Button>
+          <Button className="reg">注册</Button>
         </Addition>
       </HeaderWrapper>
     )
   }
 }
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
   return {
-    focused:state.get('header').get('focused') // state.getIn(['header','focused'])
+    focused: state.get('header').get('focused'), // state.getIn(['header','focused'])
+    list: state.getIn(['header','list'])
   }
 }
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
   return {
-    focusInput(){
+    focusInput() {
+      dispatch(actionCreator.getList());
       dispatch(actionCreator.searchFocus());
     },
-    blurInput(){
+    blurInput() {
       dispatch(actionCreator.searchBlur());
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

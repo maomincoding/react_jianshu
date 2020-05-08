@@ -120,7 +120,6 @@ export const Button = styled.div`
     color:#fff;
   }
 `
-
 export const SearchInfo = styled.div`
   position:absolute;
   left:30px;
