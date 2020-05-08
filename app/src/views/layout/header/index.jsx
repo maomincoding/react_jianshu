@@ -5,8 +5,9 @@ import { CSSTransition } from 'react-transition-group'
 import { actionCreator } from './store'
 
 class Header extends React.Component {
-  getListArea(show) {
-    if (show) {
+  getListArea() {
+    const {focused, list} = this.props;
+    if (focused) {
       return (
         <SearchInfo >
           <SearchInfoTitle>
@@ -15,7 +16,7 @@ class Header extends React.Component {
           </SearchInfoTitle>
           <SearchInfoList >
             {
-              this.props.list.map((item)=>{
+              list.map((item)=>{
               return <SearchInfoItem key={item}>{item}</SearchInfoItem>
               })
             }
@@ -27,6 +28,7 @@ class Header extends React.Component {
     }
   }
   render() {
+    const {focused,blurInput,focusInput} = this.props;
     return (
       <HeaderWrapper>
         {/* href="/" */}
@@ -40,14 +42,14 @@ class Header extends React.Component {
           </NavItem>
           <SearchWrapper>
             <CSSTransition
-              in={this.props.focused}
+              in={focused}
               timeout={200}
               classNames="slide"
             >
-              <NavSearch className={this.props.focused ? 'focused' : ''} onFocus={this.props.focusInput} onBlur={this.props.blurInput}></NavSearch>
+              <NavSearch className={focused ? 'focused' : ''} onFocus={focusInput} onBlur={blurInput}></NavSearch>
             </CSSTransition>
-            <span className={this.props.focused ? 'focused iconfont' : 'iconfont'} >&#xe62d;</span>
-            {this.getListArea(this.props.focused)}
+            <span className={focused ? 'focused iconfont' : 'iconfont'} >&#xe62d;</span>
+            {this.getListArea()}
           </SearchWrapper>
         </Nav>
         <Addition>
