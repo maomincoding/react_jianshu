@@ -1,7 +1,31 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,Addition,Button,SearchWrapper} from './style'
+import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,SearchInfoList,Addition,Button,SearchInfoItem,SearchInfoSwitch,SearchWrapper,SearchInfo,SearchInfoTitle} from './style'
 import {CSSTransition} from 'react-transition-group'
+import {actionCreator} from './store'
+
+const getListArea = (show) => {
+  if(show){
+    return (
+      <SearchInfo >
+      <SearchInfoTitle>
+        热门搜索
+        <SearchInfoSwitch>换一批</SearchInfoSwitch>
+      </SearchInfoTitle>
+      <SearchInfoList>
+        <SearchInfoItem>教育</SearchInfoItem>
+        <SearchInfoItem>文化</SearchInfoItem>
+        <SearchInfoItem>文本</SearchInfoItem>
+        <SearchInfoItem>学习</SearchInfoItem>
+        <SearchInfoItem>书法</SearchInfoItem>
+        <SearchInfoItem>社会</SearchInfoItem>
+      </SearchInfoList>
+    </SearchInfo>
+    )
+  } else{
+    return null;
+  }
+}
 
 class Header extends React.Component{
   render(){
@@ -25,6 +49,7 @@ class Header extends React.Component{
                     <NavSearch className={this.props.focused?'focused':''} onFocus={this.props.focusInput} onBlur={this.props.blurInput}></NavSearch>
                 </CSSTransition>
               <span className={this.props.focused?'focused iconfont':'iconfont'} >&#xe62d;</span>
+              {getListArea(this.props.focused)}
             </SearchWrapper>
         </Nav>
         <Addition>
@@ -34,28 +59,21 @@ class Header extends React.Component{
       </HeaderWrapper>
     )
   }
-
-
 }
 const mapStateToProps = (state) =>{
   return {
-    focused:state.header.focused
+    focused:state.get('header').get('focused') // state.getIn(['header','focused'])
   }
 }
 const mapDispatchToProps = (dispatch) =>{
   return {
     focusInput(){
-      const action = {
-        type:'focus'
-      }
-      dispatch(action);
+      dispatch(actionCreator.searchFocus());
     },
     blurInput(){
-      const action = {
-        type:'blur'
-      }
-      dispatch(action);
+      dispatch(actionCreator.searchBlur());
     }
   }
 }
+
 export default connect(mapStateToProps,mapDispatchToProps)(Header)

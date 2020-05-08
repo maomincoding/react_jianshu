@@ -1,17 +1,16 @@
-const defaultState = {
+import {actionTypes} from './index'
+import {fromJS} from 'immutable' // 保证state不被修改
+
+const defaultState =  fromJS({
   focused:false
-}
+})
 
 export default (state = defaultState ,action) =>{
-  if(action.type === 'focus'){
-    const newState = JSON.parse(JSON.stringify(state));
-    newState.focused = true;
-    return newState
+  if(action.type === actionTypes.SEARCH_FOCUS){
+    return state.set('focused',true)
   }
-  if(action.type === 'blur'){
-    const newState = JSON.parse(JSON.stringify(state));
-    newState.focused = false;
-    return newState
+  if(action.type === actionTypes.SEARCH_BLUR){
+    return state.set('focused',false)
   }
   return state
 }
