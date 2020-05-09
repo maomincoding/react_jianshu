@@ -2,7 +2,7 @@ import React, {useRef} from 'react'
 import {Link} from 'react-router-dom'
 
 const UseRef = () =>{
-  const refs = useRef(null)
+  const refs = useRef(null);
   return (
     <div>
       <p ref={refs}></p>
