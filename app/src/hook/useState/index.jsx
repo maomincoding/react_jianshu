@@ -12,6 +12,9 @@ const UseState = () => {
   return (
     <div>
       <button> <Link to="/UseEffect"> Go UseEffect</Link></button>
+      <button> <Link to="/UseRef"> Go UseRef</Link></button>
+      <button> <Link to="/UseContext"> Go UseContext</Link></button>
+      <button> <Link to="/UseMemo"> Go UseMemo</Link></button>
       <Border>
        <p>{count}</p>
        <button onClick={()=>setCount(count+1)}>add</button>
