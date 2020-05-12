@@ -1,22 +1,23 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 // import {Parent} from './parent/index'
 // import {Child} from './child/index'
 
 const Parent = React.createContext();
 
-const Child =  () => {
+
+const Child = () => {
     let count = React.useContext(Parent);
     return <h2>{count}</h2>
 }
 
-const UseContext = () =>{
-    const count = useState(99);
+const UseContext = () => {
+    const [count] = useState(99);
     return (
-           <div>
+        <div>
             <Parent.Provider value={count}>
-                <Child></Child> 
+                  <Child/>
             </Parent.Provider>
-            </div>   
+        </div>
     )
 }
-export default  UseContext
+export default UseContext
