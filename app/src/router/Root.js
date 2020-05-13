@@ -5,6 +5,7 @@ import UseState from '../hook/useState'
 import UseRef from '../hook/useRef'
 import UseContext from '../hook/useContext'
 import UseMemo from '../hook/useMemo'
+import UseCallback from '../hook/useCallback'
 
 function Root() {
   return (
@@ -15,6 +16,7 @@ function Root() {
                 <Route exact={true} path="/UseRef" component={UseRef}></Route>
                 <Route exact={true} path="/UseContext" component={UseContext}></Route>
                 <Route exact={true} path="/UseMemo" component={UseMemo}></Route>
+                <Route exact={true} path="/UseCallback" component={UseCallback}></Route>
               </div>
           </BrowserRouter>
   );

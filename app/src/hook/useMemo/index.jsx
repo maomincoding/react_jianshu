@@ -2,7 +2,6 @@ import React,{useMemo,useState} from 'react'
 import ChildMemo from './childMemo/index'
 
 const UseMemo = () => {
-    
     const [count,setCount] = useState(0);
     const [num,setNum] = useState(0);
     let res = useMemo(()=>{

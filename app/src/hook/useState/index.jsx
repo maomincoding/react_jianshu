@@ -15,6 +15,7 @@ const UseState = () => {
       <button> <Link to="/UseRef"> Go UseRef</Link></button>
       <button> <Link to="/UseContext"> Go UseContext</Link></button>
       <button> <Link to="/UseMemo"> Go UseMemo</Link></button>
+      <button> <Link to="/UseCallback"> Go UseCallback</Link></button>
       <Border>
        <p>{count}</p>
        <button onClick={()=>setCount(count+1)}>add</button>
